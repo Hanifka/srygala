@@ -77,7 +77,8 @@ Four charts computed from the loaded event set: alerts per agent (bar), top trig
 
 
 ### Remote Command Execution ⚠️ *Under Construction*
-Core feature is remote command execution on Wazuh agents using built-in capabilities—no additional installation required, with results surfaced through standard alerting and a simple execution history.
+The main feature is remote command execution on Wazuh agents using built-in capabilities, so there’s no need to install anything extra. It’s useful for incident response and threat hunting directly on the servers, and since it only relies on the existing Wazuh agent, you don’t introduce additional attack surface or extra apps to maintain.
+
 <img width="950" height="440" alt="image" src="https://github.com/user-attachments/assets/03849d1e-4410-430e-a277-580dfa80c03c" />
 
 
