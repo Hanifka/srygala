@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://github.com/Hanifka/srygala/blob/2429833c8380b4f874f89e5831903fc0f91bed3f/soc-platform/frontend/public/logo.png" width="100" height="100" alt="Srygala" />
+<img src="https://github.com/Hanifka/srygala/blob/2429833c8380b4f874f89e5831903fc0f91bed3f/soc-platform/frontend/public/logo.png" width="200" height="200" alt="Srygala" />
 
 <img width="1911" height="943" alt="image" src="https://github.com/user-attachments/assets/46a8d8fc-ddfd-4473-b0c6-7bc71eeb4fab" />
 
