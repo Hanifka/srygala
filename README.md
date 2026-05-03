@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/srygala/platform/main/frontend/public/logo.png" width="100" height="100" alt="Srygala" />
+<img src="https://raw.githubusercontent.com/srygala/soc-platform/main/frontend/public/logo.png" width="100" height="100" alt="Srygala" />
 
 # Srygala Platform
 
@@ -81,8 +81,9 @@ A Python script installed at `/var/ossec/integrations/ingest-offense.py` runs ev
 Run `install.sh` on the **Wazuh Master server**. It supports Docker and Podman and walks you through everything interactively.
 
 ```bash
-unzip platform.zip
-cd platform
+# Clone the repo
+git clone https://github.com/srygala/soc-platform.git
+cd soc-platform
 bash install.sh
 ```
 
