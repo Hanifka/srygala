@@ -64,7 +64,7 @@ Filterable table backed by the `wazuh-offense` index. Supports keyword search ac
 
 ### Cases
 Cases are stored as anchor documents inside `wazuh-offense` with `is_case_anchor: true`. Each anchor holds a `linked_event_ids` list — links are authoritative and survive reindexing. A sidebar lets you create cases, browse them, and open a full case detail view. From the detail view you can link or unlink offense events, edit title/severity/description/notes/analyst/status, and delete the case.
-<img width="1908" height="936" alt="image" src="https://github.com/user-attachments/assets/150964de-e824-42aa-a5cf-1ebf531f95f9" />
+<img width="1903" height="868" alt="image" src="https://github.com/user-attachments/assets/26b6e14c-6ef1-4404-b060-3eca31c946dc" />
 
 
 ### Investigation Panel
