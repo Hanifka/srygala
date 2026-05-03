@@ -16,6 +16,20 @@
 
 ---
 
+## Why Srygala Platform?
+
+Srygala Platform is not a new SIEM — it is a **UI and case management layer** that sits on top of your existing Wazuh deployment.
+
+- **Zero database overhead.** There is no separate database whatsoever. All data — events, cases, credentials, and sessions — lives entirely inside your Wazuh Indexer (OpenSearch). No PostgreSQL, no Redis, no user table.
+- **80% of the backend is Wazuh.** FastAPI is just a thin proxy. Queries, aggregations, authentication, and storage are all delegated directly to the Wazuh Indexer. If your Wazuh is already running, this platform works out of the box.
+- **Credentials are your Wazuh credentials.** You log in with your Wazuh Indexer username and password. No registration, no separate user management — access is controlled entirely by the roles you already have configured in Wazuh.
+- **Lightweight and non-invasive.** It does not touch your Wazuh configuration or add any new processes to Wazuh Manager. Run two containers, point them at your Indexer, and you are done.
+
+> ⚠️ **Do not expose this to the public internet.** Because authentication is passed directly to the Wazuh Indexer with no additional security layer, this platform is designed for internal networks only (LAN / VPN). Exposing port 3000 or 8000 publicly means exposing direct access to your Wazuh.
+
+---
+
+
 ## How it works
 
 ```
