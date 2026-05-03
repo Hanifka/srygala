@@ -2,6 +2,8 @@
 
 <img src="https://github.com/Hanifka/srygala/blob/2429833c8380b4f874f89e5831903fc0f91bed3f/soc-platform/frontend/public/logo.png" width="100" height="100" alt="Srygala" />
 
+<img width="1911" height="943" alt="image" src="https://github.com/user-attachments/assets/46a8d8fc-ddfd-4473-b0c6-7bc71eeb4fab" />
+
 # Srygala Platform
 
 **Full-stack SOC platform for Wazuh — case management, analytics, and remote command execution**
@@ -53,21 +55,30 @@ Credentials you log in with are forwarded directly to the Wazuh Indexer on every
 
 ### Dashboard
 KPI cards for total, open, investigating, closed, and critical (level ≥ 12) events. Alert severity distribution chart, status pie chart, and a live feed of the five most recent critical events.
+<img width="1909" height="940" alt="image" src="https://github.com/user-attachments/assets/13f7d48f-eeb9-4ba8-a333-f73fcec8bf46" />
 
 ### Events (Tickets)
 Filterable table backed by the `wazuh-offense` index. Supports keyword search across rule description, agent name, and agent IP; minimum severity filter; status filter; and configurable page size (50 → 1000). Bulk select and delete. Click any row to open the investigation panel.
+<img width="1916" height="950" alt="image" src="https://github.com/user-attachments/assets/c1fd4a83-2f49-45fa-bccf-3ae0c6d4baf3" />
+
 
 ### Cases
 Cases are stored as anchor documents inside `wazuh-offense` with `is_case_anchor: true`. Each anchor holds a `linked_event_ids` list — links are authoritative and survive reindexing. A sidebar lets you create cases, browse them, and open a full case detail view. From the detail view you can link or unlink offense events, edit title/severity/description/notes/analyst/status, and delete the case.
+<img width="1908" height="936" alt="image" src="https://github.com/user-attachments/assets/150964de-e824-42aa-a5cf-1ebf531f95f9" />
+
 
 ### Investigation Panel
 Slide-over panel for any event. Shows agent info, rule details, fired-event count, MITRE ATT&CK tactic and technique mapping, rule groups, and an expandable raw JSON view. Inline editable fields: `assigned`, `status`, `note`.
+<img width="710" height="939" alt="image" src="https://github.com/user-attachments/assets/a6bacff2-75b3-4db5-8791-4abeff1bca87" />
 
 ### Analytics
 Four charts computed from the loaded event set: alerts per agent (bar), top triggered rules (horizontal bar), severity trend over time (area), and MITRE ATT&CK coverage (bar).
+<img width="1904" height="940" alt="image" src="https://github.com/user-attachments/assets/caccdc6a-7aac-472e-a0db-aedc9aeed1fa" />
+
 
 ### Remote Command Execution ⚠️ *Under Construction*
-Dispatch shell commands to active Wazuh agents in configured groups. The backend writes dispatch entries to a log file on the Wazuh Master server; the Wazuh agent picks them up and writes results back to `wazuh-alerts-*` under rule ID `999019`. The frontend polls `/api/rc/result` every 3 seconds (90 s timeout) and displays stdout, exit code, and status. A 24-hour execution history table is shown below the command panel.
+Core feature is remote command execution on Wazuh agents using built-in capabilities—no additional installation required, with results surfaced through standard alerting and a simple execution history.
+<img width="1903" height="887" alt="image" src="https://github.com/user-attachments/assets/c83b8e07-d962-4b9b-b483-ffcaf1ea048f" />
 
 > **Note:** Remote Command requires non-trivial manual configuration on the Wazuh side (custom rules, decoders, and agent groups). The `install.sh` installer does not yet automate this. Full setup instructions are coming.
 
