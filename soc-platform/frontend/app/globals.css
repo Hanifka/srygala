@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap");
+
+/* ── Scrollbar ───────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a3a5c;
+  border-radius: 3px;
+}
+
+::selection {
+  background: rgba(0, 180, 216, 0.3);
+}
+
+/* ── Base ─────────────────────────────────────────────── */
+body {
+  background: #0a0e1a;
+  color: #e2e8f0;
+  font-family: "DM Sans", system-ui, sans-serif;
+}
+
+/* ── Grid background overlay ─────────────────────────── */
+.grid-bg::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(
+      rgba(30, 45, 74, 0.25) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(30, 45, 74, 0.25) 1px, transparent 1px);
+  background-size: 48px 48px;
+  z-index: 0;
+}
+
+/* ── Custom form elements ─────────────────────────────── */
+input,
+textarea,
+select {
+  @apply bg-soc-surface2 border border-soc-border text-soc-text rounded-md px-3 py-2 text-sm
+         outline-none transition-colors duration-200;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  @apply border-soc-accent;
+}
+
+/* ── Table row hover ──────────────────────────────────── */
+.table-row {
+  @apply transition-colors duration-150;
+}
+.table-row:hover {
+  background: #1a2234;
+}
