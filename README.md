@@ -89,27 +89,134 @@ A Python script installed at `/var/ossec/integrations/ingest-offense.py` runs ev
 
 ---
 
-## Installation
-
-Run `install.sh` on the **Wazuh Master server**. It supports Docker and Podman and walks you through everything interactively.
-
+## Prerequisites 
+ 
+Before installing Srygala Platform you need a working Wazuh deployment. If you don't have one yet:
+ 
+- **Quickest lab setup:** follow the [Wazuh All-in-One installation guide](https://documentation.wazuh.com/current/installation-guide/wazuh-server/installation-assistant.html) — installs Wazuh Manager, Indexer, and Dashboard on a single VM in about 10 minutes.
+- **Minimum specs for the lab:** 4 vCPU, 8 GB RAM, 50 GB disk (Ubuntu 22.04 or RHEL 8/9 recommended).
+- Once Wazuh is up, enroll at least one agent so you have real alerts flowing into `wazuh-alerts-*`.
+You will also need Docker or Podman installed on the machine where you plan to run the platform (can be the same Wazuh server for a lab).
+ 
+---
+ 
+## Step 1 — Verify your Wazuh Indexer is reachable
+ 
+From the machine where you will run the platform, confirm you can reach the Indexer:
+ 
 ```bash
-# Clone the repo
+curl -k -u admin:YOUR_ADMIN_PASSWORD https://<WAZUH-IP>:9200/_cluster/health
+```
+ 
+You should see `"status":"green"` or `"status":"yellow"`. If this fails, check firewall rules — port `9200` must be open between the platform host and the Indexer.
+ 
+Also confirm the Wazuh Manager API is reachable:
+ 
+```bash
+curl -k -u wazuh:wazuh https://<WAZUH-IP>:55000/
+```
+ 
+> **Where do I find the admin password?**  
+> On the Wazuh server: `cat /etc/wazuh-indexer/opensearch-security/internal_users.yml`  
+> Or check the installer output saved at `/root/wazuh-install-files/wazuh-passwords.txt`.
+ 
+---
+ 
+## Step 2 — Install the platform
+ 
+Clone the repo onto the **Wazuh Master server** (or any server that can reach it):
+ 
+```bash
 git clone https://github.com/srygala/soc-platform.git
 cd soc-platform
 bash install.sh
 ```
-
-The installer:
-1. Auto-detects Docker or Podman (podman-compose / docker-compose / docker compose v2)
-2. Detects your LAN IP
-3. Prompts for deployment mode — All-in-One or Distributed
-4. Collects Indexer URL(s), credentials, and Wazuh Manager API URL/credentials
-5. Writes `.env` and `docker-compose.yml`
-6. Creates the RC dispatch log file under `/var/log/`
-7. Tests Indexer connectivity
-8. Builds and starts containers
-9. Installs `ingest-offense.py` into `/var/ossec/integrations/` and outputs the wodle config snippet to add to `ossec.conf`
+ 
+The installer is fully interactive. It will ask you:
+ 
+1. **Deployment mode** — All-in-One (Wazuh on this same server) or Distributed (Wazuh on remote nodes)
+2. **Indexer URL** — e.g. `https://192.168.1.10:9200` — the installer auto-detects your LAN IP
+3. **Indexer credentials** — same `admin` / password you used in Step 1
+4. **Wazuh Manager API credentials** — default is `wazuh` / `wazuh`
+5. **SSL verification** — answer `N` for a lab with self-signed certs
+6. **RC log filename** — press Enter to accept the default (`srygala-rc.log`)
+7. **Offense index name** — press Enter to accept the default (`wazuh-offense`)
+8. **Minimum rule level to ingest** — press Enter to accept the default (`12`)
+The installer then writes `.env`, updates `docker-compose.yml`, builds and starts the containers, and runs a connectivity test. If the test passes you will see:
+ 
+```
+[OK]  Indexer reachable at https://192.168.1.10:9200
+[OK]  Login test passed!
+```
+ 
+---
+ 
+## Step 3 — Enable offense ingest (Wazuh integration)
+ 
+This is the step that connects the platform to Wazuh alerts. The installer generates the script and gives you a config snippet to paste — you just need to apply it.
+ 
+**3a. Add the wodle block to ossec.conf**
+ 
+The installer prints a block like this at the end — it is also saved at `/var/ossec/integrations/wodle-ingest.conf`:
+ 
+```xml
+<!-- Add inside <ossec_config> in /var/ossec/etc/ossec.conf -->
+ 
+  <wodle name="command">
+    <disabled>no</disabled>
+    <tag>srygala-ingest</tag>
+    <command>/usr/bin/python3 /var/ossec/integrations/ingest-offense.py</command>
+    <interval>5m</interval>
+    <run_on_start>yes</run_on_start>
+    <timeout>1200</timeout>
+  </wodle>
+```
+ 
+Open `ossec.conf` and paste this block inside `<ossec_config>`:
+ 
+```bash
+vi /var/ossec/etc/ossec.conf
+```
+ 
+**3b. Restart Wazuh Manager**
+ 
+```bash
+systemctl restart wazuh-manager
+```
+ 
+**3c. Verify ingest is running**
+ 
+Within 5 minutes you should see log output:
+ 
+```bash
+tail -f /var/log/wazuh_offense_ingest.log
+```
+ 
+Expected output:
+```
+[INFO] Found 14 alerts to ingest
+[INFO] Ingested alert abc123...
+[INFO] Done — ingested: 14, skipped (duplicates): 0
+```
+ 
+---
+ 
+## Step 4 — Open the dashboard
+ 
+| Service      | URL                              |
+|--------------|----------------------------------|
+| Dashboard    | `http://<YOUR-IP>:3000`          |
+| Backend API  | `http://<YOUR-IP>:8000/docs`     |
+ 
+Log in with your **Wazuh Indexer credentials** (the same `admin` password from Step 1).
+ 
+You should immediately see events populating on the Dashboard and Events tabs as the ingest wodle runs every 5 minutes.
+ 
+> ⚠️ **Keep this on your internal network.** Do not expose ports 3000 or 8000 to the public internet — see [Why Srygala Platform?](#why-srygala-platform) above.
+ 
+---
+ 
+## Deployment modes
 
 ### All-in-One
 
