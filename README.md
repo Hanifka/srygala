@@ -78,7 +78,8 @@ Four charts computed from the loaded event set: alerts per agent (bar), top trig
 
 ### Remote Command Execution ⚠️ *Under Construction*
 Core feature is remote command execution on Wazuh agents using built-in capabilities—no additional installation required, with results surfaced through standard alerting and a simple execution history.
-<img width="1903" height="887" alt="image" src="https://github.com/user-attachments/assets/c83b8e07-d962-4b9b-b483-ffcaf1ea048f" />
+<img width="950" height="440" alt="image" src="https://github.com/user-attachments/assets/03849d1e-4410-430e-a277-580dfa80c03c" />
+
 
 > **Note:** Remote Command requires non-trivial manual configuration on the Wazuh side (custom rules, decoders, and agent groups). The `install.sh` installer does not yet automate this. Full setup instructions are coming.
 
