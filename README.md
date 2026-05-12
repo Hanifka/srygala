@@ -116,9 +116,7 @@ Also confirm the Wazuh Manager API is reachable:
 curl -k -u wazuh:wazuh https://<WAZUH-IP>:55000/
 ```
  
-> **Where do I find the admin password?**  
-> On the Wazuh server: `cat /etc/wazuh-indexer/opensearch-security/internal_users.yml`  
-> Or check the installer output saved at `/root/wazuh-install-files/wazuh-passwords.txt`.
+
  
 ---
  
