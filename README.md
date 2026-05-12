@@ -5,8 +5,7 @@
 <img width="1911" height="943" alt="image" src="https://github.com/user-attachments/assets/46a8d8fc-ddfd-4473-b0c6-7bc71eeb4fab" />
 
 # Srygala Platform
-
-**Full-stack SOC platform for Wazuh — case management, analytics, and remote command execution**
+**Extended Operations for Wazuh | Case Management & Remote Command**
 
 [![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat-square&logo=nextdotjs)](https://nextjs.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
@@ -15,7 +14,7 @@
 [![Docker](https://img.shields.io/badge/Docker%20%2F%20Podman-ready-2496ED?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)
 
 </div>
-
+🧪 Beta — Srygala is in active development. Some features (like Remote Command) are still under construction. If you run into bugs, rough edges, or have ideas, please open an issue with as much detail as you can — steps to reproduce, screenshots, logs, environment info. It helps a lot.
 ---
 
 ## Why Srygala Platform?
