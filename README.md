@@ -15,7 +15,7 @@
 
 </div>
 🧪 Beta — Srygala is in active development. Some features (like Remote Command) are still under construction. If you run into bugs, rough edges, or have ideas, please open an issue with as much detail as you can — steps to reproduce, screenshots, logs, environment info. It helps a lot.
----
+
 
 ## Why Srygala Platform?
 
